@@ -34,14 +34,20 @@ class SnailShellPattern implements ISnailShellPattern {
    */
   public Future<int[]> getSnailShell(int[][] matrix) {
 
+    if (matrix == null) {
+      int[] result = new int[0];
+      return CompletableFuture.completedFuture(result);
+    }
+
     int matrixSize = matrix.length;
-  
     int[] result = new int[matrixSize * matrixSize];
+  
     int resultIndex = 0;
 
     /* position of current cell to add to the result */
     int cellRow = 0;
     int cellColumn = 0;
+
 
     while (matrixSize > 1) {
 
