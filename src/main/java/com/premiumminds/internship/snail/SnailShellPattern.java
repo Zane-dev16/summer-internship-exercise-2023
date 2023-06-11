@@ -34,35 +34,50 @@ class SnailShellPattern implements ISnailShellPattern {
    */
   public Future<int[]> getSnailShell(int[][] matrix) {
 
-    int rows = matrix.length;
-    int columns = matrix[0].length;
+    int matrixSize = matrix.length;
   
-    int[] result = new int[rows * columns];
+    int[] result = new int[matrixSize * matrixSize];
     int resultIndex = 0;
 
     /* position of current cell to add to the result */
     int cellRow = 0;
     int cellColumn = 0;
 
+    while (matrixSize > 1) {
 
+      for (int i = 0; i < matrixSize; i++) {
+        result[resultIndex++] = matrix[cellRow][cellColumn++];
+      }
 
-    for (int i = 0; i <= columns - 1; i++, resultIndex++) {
-      result[resultIndex] = matrix[0][i];
+      cellRow++;
+      cellColumn--;
+
+      for (int i = 1; i < matrixSize; i++) {
+        result[resultIndex++] = matrix[cellRow++][cellColumn];
+      }
+
+      cellRow--;
+      cellColumn--;
+
+      for (int i = 1; i < matrixSize; i++) {
+        result[resultIndex++] = matrix[cellRow][cellColumn--];
+      }
+
+      cellRow--;
+      cellColumn++;
+
+      for (int i = 1; i < matrixSize - 1; i++) {
+        result[resultIndex++] = matrix[cellRow--][cellColumn];
+      }
+
+      cellRow++;
+      cellColumn++;
+      matrixSize -= 2;
     }
 
-    for (int i = 1; i <= rows - 1; i++, resultIndex++) {
-      result[resultIndex] = matrix[i][columns - 1];
+    if (matrixSize == 1) {
+      result[resultIndex] = matrix[cellRow][cellColumn];
     }
-
-    for (int i = columns - 2; i >= 0; i--, resultIndex++) {
-      result[resultIndex] = matrix[rows-1][i];
-    }
-
-    for (int i = rows - 2; i >= 1; i--, resultIndex++) {
-      result[resultIndex] = matrix[i][0];
-    }
-
-    result[resultIndex++] = matrix[1][1];
 
     return CompletableFuture.completedFuture(result);
   };
