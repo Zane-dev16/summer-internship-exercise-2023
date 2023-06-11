@@ -49,7 +49,7 @@ public class SnailShellPatternTest {
     Future<int[]> count = new SnailShellPattern().getSnailShell(matrix);
     int[] result = count.get(10, TimeUnit.SECONDS);
     int[] expected = {9};
-    assertArrayEquals(result, expected);
+    assertArrayEquals(expected, result);
   }
 
   @Test
