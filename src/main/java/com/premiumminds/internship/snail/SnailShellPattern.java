@@ -44,6 +44,26 @@ class SnailShellPattern implements ISnailShellPattern {
     int cellRow = 0;
     int cellColumn = 0;
 
+
+
+    for (int i = 0; i <= columns - 1; i++, resultIndex++) {
+      result[resultIndex] = matrix[0][i];
+    }
+
+    for (int i = 1; i <= rows - 1; i++, resultIndex++) {
+      result[resultIndex] = matrix[i][columns - 1];
+    }
+
+    for (int i = columns - 2; i >= 0; i--, resultIndex++) {
+      result[resultIndex] = matrix[rows-1][i];
+    }
+
+    for (int i = rows - 2; i >= 1; i--, resultIndex++) {
+      result[resultIndex] = matrix[i][0];
+    }
+
+    result[resultIndex++] = matrix[1][1];
+
     return CompletableFuture.completedFuture(result);
   };
 }
